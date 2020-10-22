@@ -1,0 +1,20 @@
+distanza(D):- mossa(N,M,_,R1,R2), R2-R1=D.
+migliormossa(N,M,R1,R2):- mossa(N,M,_,R1,R2), R2-R1=Z, Z=#max{X:distanza(X)}.
+
+%%Tattiche in mente(?):
+%%Forza bruta - Preparare i salti attraverso le pedine nemiche - Preparare ostruzionismo contro i nemici - Evitare salti dei nemici - Evitare l'ostruzionismo del nemico - scegliere bene i costi
+%%Entità che potrebbero servirci
+%%Pedine(Posizione, DovePuòAndare, Colore, Id) 
+%%Mosse(DovePuòAndare, ObbiettivoDaRaggiungere, IdPedina)
+%%Tattica(ControlloNemiciIntorno, ControlloSalto, ControlliPrePostMossa)
+%%OutputFinale(IdPedina, Destinazione)
+
+%%Controlli da aggiungere 
+
+%%Range nelle colonne (ovvero non spostarti ne troppo a destra ne troppo a sinistra)
+
+%%Muoversi in blocco ovvero tutti in gruppo
+
+%%A parità di destinazione conta di più se stai partendo da lontano
+
+%%Pesi: meglio muovere chi non è ancora nell'area nemica
