@@ -363,32 +363,32 @@ public class Board {
                 case 1:
                     Sprite temp = new Sprite(player1);
                     temp.setPosition(getPiece(Checkers.showPrevious.getValue()).x - 22, getPiece(Checkers.showPrevious.getValue()).y - 20);
-                    temp.draw(batch, (float) 0.6);
+                    temp.draw(batch, (float) 0.5);
                     break;
                 case 2:
                     temp = new Sprite(player2);
                     temp.setPosition(getPiece(Checkers.showPrevious.getValue()).x - 22, getPiece(Checkers.showPrevious.getValue()).y - 20);
-                    temp.draw(batch, (float) 0.6);
+                    temp.draw(batch, (float) 0.5);
                     break;
                 case 3:
                     temp = new Sprite(player3);
                     temp.setPosition(getPiece(Checkers.showPrevious.getValue()).x - 22, getPiece(Checkers.showPrevious.getValue()).y - 20);
-                    temp.draw(batch, (float) 0.6);
+                    temp.draw(batch, (float) 0.5);
                     break;
                 case 4:
                     temp = new Sprite(player4);
                     temp.setPosition(getPiece(Checkers.showPrevious.getValue()).x - 22, getPiece(Checkers.showPrevious.getValue()).y - 20);
-                    temp.draw(batch, (float) 0.6);
+                    temp.draw(batch, (float) 0.5);
                     break;
                 case 5:
                     temp = new Sprite(player5);
                     temp.setPosition(getPiece(Checkers.showPrevious.getValue()).x - 22, getPiece(Checkers.showPrevious.getValue()).y - 20);
-                    temp.draw(batch, (float) 0.6);
+                    temp.draw(batch, (float) 0.5);
                     break;
                 case 6:
                     temp = new Sprite(player6);
                     temp.setPosition(getPiece(Checkers.showPrevious.getValue()).x - 22, getPiece(Checkers.showPrevious.getValue()).y - 20);
-                    temp.draw(batch, (float) 0.6);
+                    temp.draw(batch, (float) 0.5);
                     break;
             }
             System.out.println("DIOCANEEEEEEEE");
