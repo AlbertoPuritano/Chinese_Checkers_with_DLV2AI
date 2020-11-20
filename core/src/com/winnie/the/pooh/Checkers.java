@@ -42,6 +42,8 @@ public class Checkers {
     public Boolean[] AI;
     public Audio audio;
     public AI ai;
+    public int count=0;
+    public static Pair<Integer,Integer> showPrevious;
     public Checkers(int numPlayers, Stage stage, Boolean[] AI, final Audio audio)
     {
         Gdx.input.setCatchKey(Input.Keys.BACK, true);
@@ -88,12 +90,11 @@ public class Checkers {
             }
         });
         this.AI=AI;
-        System.out.println("porcoddio");
         ai= new AI();
-        System.out.println("porcozzio");
         this.audio = audio;
         audio.playNewGame();
         board.turnChanged(playerTurn);
+        showPrevious= new Pair<>(-1,-1);
     }
     public void draw()
     {
@@ -105,16 +106,18 @@ public class Checkers {
         batch.setProjectionMatrix(stage.getCamera().combined);
         shapeRenderer.setProjectionMatrix(stage.getCamera().combined);
         Game.input.convertInput();
+        System.out.println("diobastardo");
+        System.out.println(showPrevious);
         board.draw(batch,shapeRenderer,possibleMoves);
+        System.out.println("diocancaro");
+        System.out.println(showPrevious);
         stage.act();
         stage.draw();
     }
     public Boolean makeMove()
     {
     	if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER))
-    	{
     		System.out.println(getMoves());
-    	}
         if (AI[playerTurn])
             return AIMove();
         else
@@ -261,7 +264,7 @@ public class Checkers {
                     if (onlyJump==-1) {
                         if (selectedPiece== null || selectedPiece!=i)
                             audio.playSelect();
-                        System.out.println(selectedPiece);
+                        //System.out.println(selectedPiece);
                         selectedPiece = i;
                         beforeJump=i;
                     }
@@ -304,35 +307,41 @@ public class Checkers {
         }
         return false;
     }
-    public ArrayList<Mossa> getMoves()
+    public ArrayList<Pair<Integer,ArrayList<Integer>>> getMoves()
     {
-        ArrayList<Mossa> moves= new ArrayList<>();
+        possibleMoves.clear();
+        jumpMoves.clear();
+        ArrayList<Pair<Integer,ArrayList<Integer>>> piecesAndMoves= new ArrayList<>();
         for (int i=0; i< board.pieces.size();i++)
         {
             if (board.getPiece(i).getPlayer()==playerTurn)
             {
                 selectedPiece=i;
                 calculateMoves();
-                for (Integer m: possibleMoves)
-                {
-                	if (jumpMoves.contains(m))
-                		moves.add(new Mossa(selectedPiece,m,playerTurn,true));
-                	else
-                		moves.add(new Mossa(selectedPiece,m,playerTurn,false));
-                }
+                ArrayList<Integer> moves = new ArrayList<>(possibleMoves);
+                if (moves.size()>0)
+                    if (moves.contains(i))
+                        moves.remove(i);
+                HashSet<Integer> temp= new HashSet<>(moves);
+                moves = new ArrayList<Integer>(temp);
+                if (moves.size()>0)
+                    piecesAndMoves.add(new Pair<Integer, ArrayList<Integer>>(i,moves));
             }
         }
-        for (Mossa i : moves)
+        for (int i=0;i<piecesAndMoves.size();i++)
         {
-        	if (i.isJump())
-        	{
-        		selectedPiece= i.getPosizione();
-        		calculateMoves();
-        		for (Integer j: jumpMoves)
-        		{
-        			
-        		}
-        	}
+            for (int j=0;j<piecesAndMoves.get(i).getValue().size();j++)
+            {
+                selectedPiece=piecesAndMoves.get(i).getValue().get(j);
+                calculateMoves();
+                for (Integer move: jumpMoves)
+                {
+                    if (!piecesAndMoves.get(i).getValue().contains(move))
+                    {
+                        piecesAndMoves.get(i).getValue().add(move);
+                    }
+                }
+            }
         }
         selectedPiece=null;
         possibleMoves.clear();
@@ -341,8 +350,11 @@ public class Checkers {
     }
     public Boolean AIMove()
     {
+        jumpMoves.clear();
+        possibleMoves.clear();
+        count++;
     	ArrayList<Pair<Integer,ArrayList<Integer>>> moves = getMoves();
-    	System.out.println(moves);
+        System.out.println(moves);
     	boolean winMove=false;
     	int init=-1;
     	int pos=-1;
@@ -362,7 +374,7 @@ public class Checkers {
     			mosse.add(new Mossa (moves.get(i).getKey(),j,board.getPiece(moves.get(i).getKey()).getPlayer()));
     		}
         ai.loadFacts(mosse);
-        ai.loadEncoding(0);
+        ai.loadEncoding(playerTurn);
         ArrayList<Pair<Integer,Integer>> bestMoves= new ArrayList<Pair<Integer,Integer>>();
         for (AnswerSet a: ai.getAnswerset().getAnswersets())
         {
@@ -379,7 +391,7 @@ public class Checkers {
  				    		values.add(m2.group());
  				    	bestMoves.add(new Pair<Integer,Integer> (Integer.parseInt(values.get(0)),Integer.parseInt(values.get(1))));
  				    }
-        		}	
+        		}
         	}
         	catch (Exception e)
         	{
@@ -393,17 +405,25 @@ public class Checkers {
         	init= bestMoves.get(num).getKey();
         	pos= bestMoves.get(num).getValue();
         }
-        System.out.println(init);
-        System.out.println(pos);
+        //System.out.println(init);
+        //System.out.println(pos);
+        jumpMoves.clear();
+        possibleMoves.clear();
         selectedPiece=init;
+        showPrevious=new Pair<Integer,Integer>(playerTurn,init);
         board.move(init, pos, playerTurn);//pos iniz, fin, p turn
         if (winCond())
             return true;
         playerTurn++;
-        if (playerTurn==numPlayers)
-            playerTurn=2;
+        if (playerTurn==numPlayers+1)
+            playerTurn=1;
         board.turnChanged(playerTurn);
         possibleMoves.clear();
+        try {
+            Thread.sleep(0);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return false;
     }
     public void dispose()

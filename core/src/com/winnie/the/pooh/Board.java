@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 
@@ -324,8 +326,10 @@ public class Board {
     {
         return pieces.get(p);
     }
-    public void draw(SpriteBatch batch,ShapeRenderer shapeRenderer, ArrayList<Integer> possibleMoves)
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, ArrayList<Integer> possibleMoves)
     {
+        System.out.println("spataro");
+        System.out.println(Checkers.showPrevious);
         batch.begin();
         batch.draw(background,0,0);
         for (Piece p : pieces)
@@ -352,6 +356,43 @@ public class Board {
                     break;
             }
         }
+        System.out.println("masuzzo");
+        System.out.println(Checkers.showPrevious);
+        if (Checkers.showPrevious!=null) {
+            switch (Checkers.showPrevious.getKey()) {
+                case 1:
+                    Sprite temp = new Sprite(player1);
+                    temp.setPosition(getPiece(Checkers.showPrevious.getValue()).x - 22, getPiece(Checkers.showPrevious.getValue()).y - 20);
+                    temp.draw(batch, (float) 0.6);
+                    break;
+                case 2:
+                    temp = new Sprite(player2);
+                    temp.setPosition(getPiece(Checkers.showPrevious.getValue()).x - 22, getPiece(Checkers.showPrevious.getValue()).y - 20);
+                    temp.draw(batch, (float) 0.6);
+                    break;
+                case 3:
+                    temp = new Sprite(player3);
+                    temp.setPosition(getPiece(Checkers.showPrevious.getValue()).x - 22, getPiece(Checkers.showPrevious.getValue()).y - 20);
+                    temp.draw(batch, (float) 0.6);
+                    break;
+                case 4:
+                    temp = new Sprite(player4);
+                    temp.setPosition(getPiece(Checkers.showPrevious.getValue()).x - 22, getPiece(Checkers.showPrevious.getValue()).y - 20);
+                    temp.draw(batch, (float) 0.6);
+                    break;
+                case 5:
+                    temp = new Sprite(player5);
+                    temp.setPosition(getPiece(Checkers.showPrevious.getValue()).x - 22, getPiece(Checkers.showPrevious.getValue()).y - 20);
+                    temp.draw(batch, (float) 0.6);
+                    break;
+                case 6:
+                    temp = new Sprite(player6);
+                    temp.setPosition(getPiece(Checkers.showPrevious.getValue()).x - 22, getPiece(Checkers.showPrevious.getValue()).y - 20);
+                    temp.draw(batch, (float) 0.6);
+                    break;
+            }
+            System.out.println("DIOCANEEEEEEEE");
+        }
         batch.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BROWN);
@@ -361,6 +402,8 @@ public class Board {
                 shapeRenderer.circle(getPiece(i).x, getPiece(i).y, 22);
         }
         shapeRenderer.end();
+        System.out.println("puritano");
+        System.out.println(Checkers.showPrevious);
     }
     public Boolean move(int init,int pos,int playerTurn)
     {

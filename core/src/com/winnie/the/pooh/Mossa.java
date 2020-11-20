@@ -19,7 +19,7 @@ public class Mossa {
 	
 	private boolean isJump;
 	
-	public Mossa(int posizione, int mossa, int colore, boolean isJump) {
+	public Mossa(int posizione, int mossa, int colore) {
 		this.posizione = posizione;
 		this.mossa = mossa;
 		this.colore = colore;

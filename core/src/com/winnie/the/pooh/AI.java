@@ -22,11 +22,13 @@ public class AI {
 	private static Handler handler;
 	private String dlvPath;
 	private InputProgram program;
-	private String prova;
+	private String intP1;
+	private String intP2;
 	public AI() {
 		System.out.println("ciao");
-		dlvPath= "lib/dlv2.exe";
-		prova= "encodings/prova.dlv";
+		dlvPath= "dlv2.exe";
+		intP1= "encodings/intP1.dlv";
+		intP2= "encodings/intP2.dlv";
 		handler = new DesktopHandler(new DLV2DesktopService(dlvPath));
 		program = new ASPInputProgram();
 	}
@@ -44,8 +46,10 @@ public class AI {
 	}
 	public void loadEncoding(int choice)
 	{
-		program.addFilesPath(prova);
-		
+		if (choice==1)
+			program.addFilesPath(intP1);
+		else
+			program.addFilesPath(intP2);
 	}
     public AnswerSets getAnswerset()
     {

@@ -16,6 +16,7 @@ public class Menu {
     public FreeTypeFontGenerator fontGenerator;
     public BitmapFont textFont;
     public Label.LabelStyle labelStyle;
+    public Label.LabelStyle labelStyle2;
     public Label dialogText;
     public Dialog dialog;
     public TextButton button;
@@ -25,6 +26,7 @@ public class Menu {
     public Audio audio;
     public Menu(final Stage stage, int lastWinner, final Boolean[] AI, final Audio audio)
     {
+        System.out.println("costruttore menu");
         Gdx.input.setCatchKey(Input.Keys.BACK, false);
         this.audio= audio;
         audio.playMenuMusic();
@@ -40,7 +42,10 @@ public class Menu {
         parameter.size = 35;
         textFont= fontGenerator.generateFont(parameter);
         labelStyle = new Label.LabelStyle();
+        labelStyle2= new Label.LabelStyle();
         labelStyle.font = textFont;
+        labelStyle2.font= textFont;
+        labelStyle2.background= Game.skin.newDrawable("white", 0, 0, 0, 0.4f);
         dialogText= new Label("Choose the number of players:", labelStyle);
         dialogText.setPosition(595-170,890);
         dialogText.setColor(Color.LIGHT_GRAY);
@@ -66,7 +71,7 @@ public class Menu {
         stage.addActor(dialogText);
         if (lastWinner>-1)
         {
-            won = new Label("Player "+ lastWinner + " has won the game!", labelStyle);
+            won = new Label("Player "+ lastWinner + " has won the game!", labelStyle2);
             switch (lastWinner)
             {
                 case 1:
@@ -100,6 +105,7 @@ public class Menu {
                 player.setPosition(1020 + (i * 65) - 170, 760);
                 final CheckBox checkbox = new CheckBox("AI", Game.skin);
                 checkbox.setPosition(1015 + (i * 65) - 170, 720);
+                checkbox.setChecked(AI[i]);
                 final int finalI = i;
                 checkbox.addListener(new ChangeListener() {
                     @Override

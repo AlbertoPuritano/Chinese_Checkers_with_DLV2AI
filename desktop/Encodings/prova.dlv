@@ -1,11 +1,15 @@
-distanza(D):- mossa(N,M,_,R1,R2), R2-R1=D.
-migliormossa(N,M,R1,R2):- mossa(N,M,_,R1,R2), R2-R1=Z, Z=#max{X:distanza(X)}.
+distanza(D,C):- mossa(N,M,1,R1,R2),C=1, R2-R1=D.
+distanza(D,C):- mossa(N,M,2,R1,R2),C=2, R1-R2=D.
+migliormossa(N,M,R1,R2):- mossa(N,M,1,R1,R2), R2-R1=Z, Z=#max{X:distanza(X,1)}.
+migliormossa(N,M,R1,R2):- mossa(N,M,2,R1,R2), R1-R2=Z, Z=#max{X:distanza(X,2)}.
+diocane(5).
+%:- sinistra(X), X>2. [3@1]
 
 %%Tattiche in mente(?):
 %%Forza bruta - Preparare i salti attraverso le pedine nemiche - Preparare ostruzionismo contro i nemici - Evitare salti dei nemici - Evitare l'ostruzionismo del nemico - scegliere bene i costi
-%%Entità che potrebbero servirci
-%%Pedine(Posizione, DovePuòAndare, Colore, Id) 
-%%Mosse(DovePuòAndare, ObbiettivoDaRaggiungere, IdPedina)
+%%Entitï¿½ che potrebbero servirci
+%%Pedine(Posizione, DovePuï¿½Andare, Colore, Id) 
+%%Mosse(DovePuï¿½Andare, ObbiettivoDaRaggiungere, IdPedina)
 %%Tattica(ControlloNemiciIntorno, ControlloSalto, ControlliPrePostMossa)
 %%OutputFinale(IdPedina, Destinazione)
 
@@ -15,6 +19,6 @@ migliormossa(N,M,R1,R2):- mossa(N,M,_,R1,R2), R2-R1=Z, Z=#max{X:distanza(X)}.
 
 %%Muoversi in blocco ovvero tutti in gruppo
 
-%%A parità di destinazione conta di più se stai partendo da lontano
+%%A paritï¿½ di destinazione conta di piï¿½ se stai partendo da lontano
 
-%%Pesi: meglio muovere chi non è ancora nell'area nemica
+%%Pesi: meglio muovere chi non ï¿½ ancora nell'area nemica

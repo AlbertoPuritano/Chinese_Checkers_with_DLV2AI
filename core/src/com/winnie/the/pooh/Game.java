@@ -27,6 +27,7 @@ public class Game extends ApplicationAdapter {
 	public Audio audio;
 	public static Boolean exitMenu;
 	public static Skin skin;
+	public static boolean pause;
 	@Override
 	public void create () {
 		cam = new OrthographicCamera();
@@ -41,6 +42,7 @@ public class Game extends ApplicationAdapter {
 		menu= new Menu(stageMenu,lastWinner,AI,audio);
 		input= new Input(cam);
 		exitMenu=false;
+		pause = false;
 	}
 
 	@Override
@@ -51,29 +53,31 @@ public class Game extends ApplicationAdapter {
 		}
 		else
 		{
-			if (checkers!=null)
-			{
-				checkers.draw();
-				if (checkers.makeMove())
+			if (checkers!=null) {
+				if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER))
+					pause=!pause;
+				if (!pause)
 				{
-					isMenu=true;
-					//stageGame.clear();
-					System.out.println("Player "+ checkers.playerTurn+ " has won!");
-					lastWinner=checkers.playerTurn;
-					checkers.dispose();
-					stageMenu= new Stage(view);
-					menu= new Menu(stageMenu,lastWinner,AI,audio);
-					checkers=null;
-				}
-				if (exitMenu)
-				{
-					isMenu=true;
-					//stageGame.clear();
-					checkers.dispose();
-					stageMenu= new Stage(view);
-					menu= new Menu(stageMenu,lastWinner,AI,audio);
-					checkers=null;
-					exitMenu=false;
+					checkers.draw();
+					if (checkers.makeMove()) {
+						isMenu = true;
+						//stageGame.clear();
+						System.out.println("Player " + checkers.playerTurn + " has won!");
+						lastWinner = checkers.playerTurn;
+						checkers.dispose();
+						stageMenu = new Stage(view);
+						menu = new Menu(stageMenu, lastWinner, AI, audio);
+						checkers = null;
+					}
+					if (exitMenu) {
+						isMenu = true;
+						//stageGame.clear();
+						checkers.dispose();
+						stageMenu = new Stage(view);
+						menu = new Menu(stageMenu, lastWinner, AI, audio);
+						checkers = null;
+						exitMenu = false;
+					}
 				}
 			}
 			else

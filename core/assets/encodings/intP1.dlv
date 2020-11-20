@@ -1,0 +1,2 @@
+distanza(D,C):- mossa(N,M,1,R1,R2),C=1, R2-R1=D.
+migliormossa(N,M,R1,R2):- mossa(N,M,1,R1,R2), R2-R1=Z, Z=#max{X:distanza(X,1)}.
