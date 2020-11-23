@@ -23,7 +23,7 @@ public class AI {
 	private String intP1;
 	private String intP2;
 	public AI() {
-		dlvPath= "dlv2.exe -n=0";
+		dlvPath= "dlv2.exe";
 		intP1= "encodings/intP1.dlv";
 		intP2= "encodings/intP2.dlv";
 		handler = new DesktopHandler(new DLV2DesktopService(dlvPath));
@@ -51,9 +51,16 @@ public class AI {
 	}
     public AnswerSets getAnswersets()
     {
+		OptionDescriptor option= new OptionDescriptor("-n=0 ");
+		handler.addOption(option);
 		Output o = handler.startSync();
         AnswerSets answers = (AnswerSets) o;
+		System.out.println("ma incredibile");
 		System.out.println(answers.getAnswerSetsString());
+		System.out.println(answers.getAnswersets().size());
+		System.out.println("la madonna è puttana");
+
+
         return answers;
     }
 }

@@ -401,8 +401,7 @@ public class Checkers {
         }
         System.out.println(bestMoves.size());
         Random random= new Random();
-        int num=random.
-                nextInt(bestMoves.size());
+        int num=random.nextInt(bestMoves.size());
         if (!winMove)
         {
         	init= bestMoves.get(num).getKey();
