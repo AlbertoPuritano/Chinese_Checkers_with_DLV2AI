@@ -1,7 +1,7 @@
 distanza(D,C):- mossa(N,M,2,R1,R2),C=2, R1-R2=D.
 in(N,M,R1,R2)|out(N,M,R1,R2):- mossa (N,M,C,R1,R2).
 :- #count{A,B,C,D:in(A,B,C,D)}=N, N!=1.
-:- in(N,M,R1,R2), R1-R2=Z, Y=#max{X:distanza(X,_)}, Z!=Y.
+:- in(N,M,R1,R2), R1-R2=Z, Y=#max{X:distanza(X,_)}, Z<Y-1.
 
 %primo livello di importanza: non muovere quelle già in base
 :~ in(N,M,R1,R2), mossa (N,M,2,R1,R2), R1>=0,R1<=4. [1@1]
