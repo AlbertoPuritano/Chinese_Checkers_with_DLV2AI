@@ -106,11 +106,7 @@ public class Checkers {
         batch.setProjectionMatrix(stage.getCamera().combined);
         shapeRenderer.setProjectionMatrix(stage.getCamera().combined);
         Game.input.convertInput();
-        System.out.println("diobastardo");
-        System.out.println(showPrevious);
         board.draw(batch,shapeRenderer,possibleMoves);
-        System.out.println("diocancaro");
-        System.out.println(showPrevious);
         stage.act();
         stage.draw();
     }
@@ -354,6 +350,7 @@ public class Checkers {
         possibleMoves.clear();
         count++;
     	ArrayList<Pair<Integer,ArrayList<Integer>>> moves = getMoves();
+        System.out.println("mosse:");
         System.out.println(moves);
     	boolean winMove=false;
     	int init=-1;
@@ -365,7 +362,6 @@ public class Checkers {
     			board.move(moves.get(i).getKey(), j, playerTurn);
     			if (winCond())
     			{
-    				System.out.println("DAJEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
     				winMove=true;
     				init=moves.get(i).getKey();
     				pos=j;
@@ -376,13 +372,17 @@ public class Checkers {
         ai.loadFacts(mosse);
         ai.loadEncoding(playerTurn);
         ArrayList<Pair<Integer,Integer>> bestMoves= new ArrayList<Pair<Integer,Integer>>();
-        for (AnswerSet a: ai.getAnswerset().getAnswersets())
+        System.out.println("ma che è sta merda");
+        for (AnswerSet a: ai.getAnswersets().getAnswersets())
         {
+            System.out.println("caio");
+            System.out.println(a);
         	try
         	{
         		for (Object obj: a.getAnswerSet())
         		{
-        			Matcher m= Pattern.compile("migliormossa").matcher((CharSequence) obj);
+                    System.out.println(obj);
+        			Matcher m= Pattern.compile("in").matcher((CharSequence) obj);
         			if (m.find())
  				    {
  				    	ArrayList<String> values = new ArrayList<String>();
@@ -390,6 +390,7 @@ public class Checkers {
  				    	while (m2.find())
  				    		values.add(m2.group());
  				    	bestMoves.add(new Pair<Integer,Integer> (Integer.parseInt(values.get(0)),Integer.parseInt(values.get(1))));
+                        System.out.println("diobastardo");
  				    }
         		}
         	}
@@ -398,8 +399,10 @@ public class Checkers {
         		e.printStackTrace();
         	}
         }
+        System.out.println(bestMoves.size());
         Random random= new Random();
-        int num=random.nextInt(bestMoves.size());
+        int num=random.
+                nextInt(bestMoves.size());
         if (!winMove)
         {
         	init= bestMoves.get(num).getKey();

@@ -328,8 +328,6 @@ public class Board {
     }
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, ArrayList<Integer> possibleMoves)
     {
-        System.out.println("spataro");
-        System.out.println(Checkers.showPrevious);
         batch.begin();
         batch.draw(background,0,0);
         for (Piece p : pieces)
@@ -356,8 +354,6 @@ public class Board {
                     break;
             }
         }
-        System.out.println("masuzzo");
-        System.out.println(Checkers.showPrevious);
         if (Checkers.showPrevious!=null) {
             switch (Checkers.showPrevious.getKey()) {
                 case 1:
@@ -391,7 +387,6 @@ public class Board {
                     temp.draw(batch, (float) 0.5);
                     break;
             }
-            System.out.println("DIOCANEEEEEEEE");
         }
         batch.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -402,8 +397,6 @@ public class Board {
                 shapeRenderer.circle(getPiece(i).x, getPiece(i).y, 22);
         }
         shapeRenderer.end();
-        System.out.println("puritano");
-        System.out.println(Checkers.showPrevious);
     }
     public Boolean move(int init,int pos,int playerTurn)
     {

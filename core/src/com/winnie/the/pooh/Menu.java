@@ -26,7 +26,6 @@ public class Menu {
     public Audio audio;
     public Menu(final Stage stage, int lastWinner, final Boolean[] AI, final Audio audio)
     {
-        System.out.println("costruttore menu");
         Gdx.input.setCatchKey(Input.Keys.BACK, false);
         this.audio= audio;
         audio.playMenuMusic();

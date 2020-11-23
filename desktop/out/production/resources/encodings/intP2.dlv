@@ -1,8 +1,14 @@
-
 distanza(D,C):- mossa(N,M,2,R1,R2),C=2, R1-R2=D.
+in(N,M,R1,R2)|out(N,M,R1,R2):- mossa (N,M,C,R1,R2).
+:- #count{A,B,C,D:in(A,B,C,D)}=N, N!=1.
+:- in(N,M,R1,R2), R1-R2=Z, Y=#max{X:distanza(X,_)}, Z<Y-1.
 
-migliormossa(N,M,R1,R2):- mossa(N,M,2,R1,R2), R1-R2=Z, Z=#max{X:distanza(X,2)}.
-%:- sinistra(X), X>2. [3@1]
+%primo livello di importanza: non muovere quelle già in base
+:~ in(N,M), mossa (N,M,2,R1,R2), R1>=0,R1<=4. [1@1]
+%mossa(3,16,2,2,4). mossa(3,1,2,2,1). mossa(3,4,2,2,2). mossa(3,14,2,2,4). mossa(3,18,2,2,4). mossa(3,39,2,2,6). mossa(3,15,2,2,4). mossa(3,41,2,2,6). mossa(3,58,2,2,8). mossa(3,60,2,2,8). mossa(28,16,2,5,4). mossa(28,51,2,5,7). mossa(28,39,2,5,6). mossa(28,27,2,5,5). mossa(28,29,2,5,5). mossa(28,15,2,5,4). mossa(28,18,2,5,4). mossa(28,53,2,5,7). mossa(28,41,2,5,6). mossa(28,58,2,5,8). mossa(28,60,2,5,8). mossa(28,9,2,5,3). mossa(28,4,2,5,2). mossa(49,48,2,7,7). mossa(49,51,2,7,7). mossa(49,38,2,7,6). mossa(49,39,2,7,6). mossa(49,58,2,7,8). mossa(49,59,2,7,8). mossa(49,53,2,7,7). mossa(49,16,2,7,4). mossa(49,41,2,7,6). mossa(49,60,2,7,8). mossa(49,18,2,7,4). mossa(52,51,2,7,7). mossa(52,53,2,7,7). mossa(52,72,2,7,9). mossa(52,41,2,7,6). mossa(52,42,2,7,6). mossa(52,61,2,7,8). mossa(52,70,2,7,9). mossa(52,39,2,7,6). mossa(52,63,2,7,8). mossa(52,82,2,7,10). mossa(52,91,2,7,11). mossa(52,93,2,7,11). mossa(52,16,2,7,4). mossa(52,58,2,7,8). mossa(52,60,2,7,8). mossa(52,68,2,7,9). mossa(52,113,2,7,13). mossa(52,18,2,7,4). mossa(71,82,2,9,10). mossa(71,53,2,9,7). mossa(71,70,2,9,9). mossa(71,72,2,9,9). mossa(71,92,2,9,11). mossa(71,61,2,9,8). mossa(71,51,2,9,7). mossa(71,91,2,9,11). mossa(71,93,2,9,11). mossa(71,69,2,9,9). mossa(71,114,2,9,13). mossa(71,42,2,9,6). mossa(71,63,2,9,8). mossa(71,68,2,9,9). mossa(71,113,2,9,13). mossa(71,90,2,9,11). mossa(80,82,2,10,10). mossa(80,69,2,10,9). mossa(80,70,2,10,9). mossa(80,91,2,10,11). mossa(80,92,2,10,11). mossa(80,78,2,10,10). mossa(80,61,2,10,8). mossa(80,90,2,10,11). mossa(80,72,2,10,9). mossa(80,93,2,10,11). mossa(80,68,2,10,9). mossa(80,114,2,10,13). mossa(80,42,2,10,6). mossa(80,63,2,10,8). mossa(80,113,2,10,13). mossa(83,82,2,10,10). mossa(83,72,2,10,9). mossa(83,73,2,10,9). mossa(83,94,2,10,11). mossa(83,61,2,10,8). mossa(83,70,2,10,9). mossa(83,42,2,10,6). mossa(83,63,2,10,8). mossa(83,91,2,10,11). mossa(83,93,2,10,11). mossa(83,68,2,10,9). mossa(83,113,2,10,13). mossa(102,115,2,12,14). mossa(102,103,2,12,12). mossa(102,89,2,12,11). mossa(102,90,2,12,11). mossa(102,104,2,12,12). mossa(102,116,2,12,14). mossa(102,69,2,12,9). mossa(102,106,2,12,12). mossa(102,92,2,12,11). mossa(102,114,2,12,13). mossa(105,113,2,12,13). mossa(105,114,2,12,13). mossa(105,104,2,12,12). mossa(105,106,2,12,12). mossa(105,92,2,12,11). mossa(105,93,2,12,11). mossa(105,115,2,12,14). mossa(105,69,2,12,9). mossa(105,70,2,12,9). mossa(105,90,2,12,11). mossa(105,72,2,12,9). mossa(105,91,2,12,11). mossa(105,68,2,12,9). mossa(111,113,2,13,13). mossa(111,115,2,13,14). mossa(111,103,2,13,12). mossa(111,89,2,13,11). mossa(111,93,2,13,11). mossa(111,104,2,13,12). mossa(111,116,2,13,14). mossa(111,70,2,13,9). mossa(111,106,2,13,12). mossa(111,72,2,13,9). mossa(111,91,2,13,11). mossa(111,68,2,13,9).
+
+
+
 
 %%Tattiche in mente(?):
 %%Forza bruta - Preparare i salti attraverso le pedine nemiche - Preparare ostruzionismo contro i nemici - Evitare salti dei nemici - Evitare l'ostruzionismo del nemico - scegliere bene i costi
