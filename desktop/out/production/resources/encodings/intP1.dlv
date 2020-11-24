@@ -1,10 +1,13 @@
 distanza(D,C):- mossa(N,M,1,R1,R2),C=1, R2-R1=D.
-in(N,M,R1,R2)|out(N,M,R1,R2):- mossa (N,M,C,R1,R2).
+in(N,M,R1,R2)|out(N,M,R1,R2):- mossa (N,M,1,R1,R2).
 :- #count{A,B,C,D:in(A,B,C,D)}=N, N!=1.
 :- in(N,M,R1,R2), R2-R1=Z, Y=#max{X:distanza(X,_)}, Z<Y-1.
 
 %primo livello di importanza: non muovere quelle già in base
-:~ in(N,M,R1,R2), mossa (N,M,1,R1,R2), R1>=13,R1<=16. [1@1]
+%:~ in(N,M,R1,R2), mossa (N,M,1,R1,R2), R1>=13,R1<=16. [1@1]
+
+
+
 
 
 

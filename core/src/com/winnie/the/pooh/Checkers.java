@@ -367,13 +367,16 @@ public class Checkers {
     				pos=j;
     			}
     			board.move(j,moves.get(i).getKey(),playerTurn);
-    			mosse.add(new Mossa (moves.get(i).getKey(),j,board.getPiece(moves.get(i).getKey()).getPlayer()));
+    			mosse.add(new Mossa (moves.get(i).getKey(),j,playerTurn));
     		}
+    		///
+        ///
+        ai.clear();
         ai.loadFacts(mosse);
         ai.loadEncoding(playerTurn);
         ArrayList<Pair<Integer,Integer>> bestMoves= new ArrayList<Pair<Integer,Integer>>();
         System.out.println("ma che è sta merda");
-        for (AnswerSet a: ai.getAnswersets().getAnswersets())
+        for (AnswerSet a: ai.getAnswersets(true).getAnswersets())
         {
             System.out.println("caio");
             System.out.println(a);
@@ -400,20 +403,41 @@ public class Checkers {
         	}
         }
         System.out.println(bestMoves.size());
-        Random random= new Random();
-        int num=random.nextInt(bestMoves.size());
-        if (!winMove)
+        int player=playerTurn;
+        int enemy;
+        if (player==1)
+            enemy=2;
+        else
+            enemy=1;
+        ArrayList<Pair<Integer,Integer>> costi= new ArrayList<>();
+        for (int a=0;a<bestMoves.size();a++)
         {
-        	init= bestMoves.get(num).getKey();
-        	pos= bestMoves.get(num).getValue();
+            int move1= bestMoves.get(a).getKey();
+            int move2=bestMoves.get(a).getValue();
+            playerTurn=enemy;
+            board.move(move1,move2,playerTurn);
+            ArrayList<Pair<Integer,ArrayList<Integer>>> movesEnemy = getMoves();
+            board.move(move2,move1,playerTurn);
+            playerTurn=player;
+            ArrayList<Mossa> mosseEnemy= new ArrayList<Mossa>();
+            mosseEnemy.add(new Mossa(move1,move2,player));//MOSSA DEL GIOCATORE IN CORSO
+            for (int i=0; i<movesEnemy.size();i++)
+                for (Integer j: movesEnemy.get(i).getValue())
+                    mosseEnemy.add(new Mossa (movesEnemy.get(i).getKey(),j,enemy));
+            ai.clear();
+            ai.loadFacts(mosseEnemy);
+            ai.loadEncoding(3);
+            System.out.println(ai.getAnswersets(false).getAnswerSetsString());
         }
+
+
         //System.out.println(init);
         //System.out.println(pos);
         jumpMoves.clear();
         possibleMoves.clear();
         selectedPiece=init;
-        showPrevious=new Pair<Integer,Integer>(playerTurn,init);
-        board.move(init, pos, playerTurn);//pos iniz, fin, p turn
+        showPrevious=new Pair<Integer,Integer>(playerTurn,1);
+        //board.move(init, pos, playerTurn);//pos iniz, fin, p turn
         if (winCond())
             return true;
         playerTurn++;

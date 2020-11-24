@@ -22,18 +22,24 @@ public class AI {
 	private InputProgram program;
 	private String intP1;
 	private String intP2;
+	private String intP1Fase2;
+	private String intP2Fase2;
 	public AI() {
 		dlvPath= "dlv2.exe";
 		intP1= "encodings/intP1.dlv";
 		intP2= "encodings/intP2.dlv";
+		intP1Fase2= "encodings/intP1Fase2.dlv";
+		intP2Fase2= "encodings/intP2Fase2.dlv";
 		handler = new DesktopHandler(new DLV2DesktopService(dlvPath));
 		program = new ASPInputProgram();
 	}
-	
-	public void loadFacts(ArrayList<Mossa> moves)
+	public void clear()
 	{
 		handler.removeAll();
 		program.clearAll();
+	}
+	public void loadFacts(ArrayList<Mossa> moves)
+	{
 		try {
 			for (Mossa m: moves)
               	program.addObjectInput(m);
@@ -44,23 +50,32 @@ public class AI {
 	}
 	public void loadEncoding(int choice)
 	{
-		if (choice==1)
-			program.addFilesPath(intP1);
-		else
-			program.addFilesPath(intP2);
+		switch(choice)
+		{
+			case 1:
+				program.addFilesPath(intP1);
+				break;
+			case 2:
+				program.addFilesPath(intP2);
+				break;
+			case 3:
+				program.addFilesPath(intP1Fase2);
+				break;
+			case 4:
+				program.addFilesPath(intP2Fase2);
+				break;
+		}
 	}
-    public AnswerSets getAnswersets()
+    public AnswerSets getAnswersets(boolean choice)
     {
 		OptionDescriptor option= new OptionDescriptor("-n=0 ");
-		handler.addOption(option);
+		if (choice)
+			handler.addOption(option);
 		Output o = handler.startSync();
         AnswerSets answers = (AnswerSets) o;
-		System.out.println("ma incredibile");
 		System.out.println(answers.getAnswerSetsString());
 		System.out.println(answers.getAnswersets().size());
-		System.out.println("la madonna è puttana");
-
-
+		handler.removeOption(option);
         return answers;
     }
 }

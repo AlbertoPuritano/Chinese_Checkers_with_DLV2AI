@@ -1,0 +1,6 @@
+%primo livello di importanza: non muovere quelle già in base
+:~ mossa (N,M,1,R1,R2), R1>=13,R1<=16. [1@2]
+
+%quanto piu è grande la distanza della nuova mossa massima dell'avversario,tanto paga
+distanza(D):- mossa(N,M,C,R1,R2),C=2, R1-R2=D.
+:~ #max{X:distanza(X)}=A.[A@1]
