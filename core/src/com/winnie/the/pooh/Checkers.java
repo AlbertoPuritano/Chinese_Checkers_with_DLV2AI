@@ -260,7 +260,6 @@ public class Checkers {
                     if (onlyJump==-1) {
                         if (selectedPiece== null || selectedPiece!=i)
                             audio.playSelect();
-                        //System.out.println(selectedPiece);
                         selectedPiece = i;
                         beforeJump=i;
                     }
@@ -346,12 +345,14 @@ public class Checkers {
     }
     public Boolean AIMove()
     {
+        System.out.println("---------------------------------------------------------");
+        System.out.println(playerTurn);
         jumpMoves.clear();
         possibleMoves.clear();
         count++;
     	ArrayList<Pair<Integer,ArrayList<Integer>>> moves = getMoves();
-        System.out.println("mosse:");
-        System.out.println(moves);
+        //System.out.println("mosse:");
+        //System.out.println(moves);
     	boolean winMove=false;
     	int init=-1;
     	int pos=-1;
@@ -379,12 +380,10 @@ public class Checkers {
         for (AnswerSet a: ai.getAnswersets(true).getAnswersets())
         {
             System.out.println("caio");
-            System.out.println(a);
         	try
         	{
         		for (Object obj: a.getAnswerSet())
         		{
-                    System.out.println(obj);
         			Matcher m= Pattern.compile("in").matcher((CharSequence) obj);
         			if (m.find())
  				    {
@@ -402,14 +401,14 @@ public class Checkers {
         		e.printStackTrace();
         	}
         }
-        System.out.println(bestMoves.size());
+        System.out.println("size array bestMoves: " + bestMoves.size());
         int player=playerTurn;
         int enemy;
         if (player==1)
             enemy=2;
         else
             enemy=1;
-        ArrayList<Pair<Integer,Integer>> costi= new ArrayList<>();
+        WeakMoves costi= new WeakMoves(2);
         for (int a=0;a<bestMoves.size();a++)
         {
             int move1= bestMoves.get(a).getKey();
@@ -426,18 +425,24 @@ public class Checkers {
                     mosseEnemy.add(new Mossa (movesEnemy.get(i).getKey(),j,enemy));
             ai.clear();
             ai.loadFacts(mosseEnemy);
-            ai.loadEncoding(3);
-            System.out.println(ai.getAnswersets(false).getAnswerSetsString());
+            if (player==1)
+                ai.loadEncoding(3);
+            else
+                ai.loadEncoding(4);
+            costi.add(ai.getAnswersets(false).getAnswerSetsString());
         }
-
-
+        //Random random= new Random();
+        //int n= random.nextInt(bestMoves.size());
+        System.out.println("migliore indice costo: " +  costi.bestCost());
+        init= bestMoves.get(costi.bestCost()).getKey();
+        pos=bestMoves.get(costi.bestCost()).getValue();
         //System.out.println(init);
         //System.out.println(pos);
         jumpMoves.clear();
         possibleMoves.clear();
         selectedPiece=init;
-        showPrevious=new Pair<Integer,Integer>(playerTurn,1);
-        //board.move(init, pos, playerTurn);//pos iniz, fin, p turn
+        showPrevious=new Pair<Integer,Integer>(playerTurn,init);
+        board.move(init, pos, playerTurn);//pos iniz, fin, p turn
         if (winCond())
             return true;
         playerTurn++;
@@ -445,11 +450,6 @@ public class Checkers {
             playerTurn=1;
         board.turnChanged(playerTurn);
         possibleMoves.clear();
-        try {
-            Thread.sleep(0);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return false;
     }
     public void dispose()

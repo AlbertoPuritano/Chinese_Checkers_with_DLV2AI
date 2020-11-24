@@ -2,5 +2,7 @@
 :~ mossa (N,M,1,R1,R2), R1>=13,R1<=16. [1@2]
 
 %quanto piu è grande la distanza della nuova mossa massima dell'avversario,tanto paga
-distanza(D):- mossa(N,M,C,R1,R2),C=2, R1-R2=D.
+distanza(D):- mossa(N,M,C,R1,R2),C=2, R1-R2=D, D>=0.
 :~ #max{X:distanza(X)}=A.[A@1]
+
+

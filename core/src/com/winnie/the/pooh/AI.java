@@ -74,7 +74,7 @@ public class AI {
 		Output o = handler.startSync();
         AnswerSets answers = (AnswerSets) o;
 		System.out.println(answers.getAnswerSetsString());
-		System.out.println(answers.getAnswersets().size());
+		//System.out.println("answeset size " + answers.getAnswersets().size());
 		handler.removeOption(option);
         return answers;
     }
