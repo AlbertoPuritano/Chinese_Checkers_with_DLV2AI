@@ -5,7 +5,6 @@ in(N,M,R1,R2)|out(N,M,R1,R2):- mossa (N,M,2,R1,R2).
 
 
 
-
 %%Tattiche in mente(?):
 %%Forza bruta - Preparare i salti attraverso le pedine nemiche - Preparare ostruzionismo contro i nemici - Evitare salti dei nemici - Evitare l'ostruzionismo del nemico - scegliere bene i costi
 %%Entit� che potrebbero servirci

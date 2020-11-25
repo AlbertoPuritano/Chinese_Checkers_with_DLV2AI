@@ -402,13 +402,26 @@ public class Checkers {
         	}
         }
         System.out.println("size array bestMoves: " + bestMoves.size());
+        int estremoBasso=999;
+        int estremoAlto=-1;
+        for (int i=0;i<board.pieces.size();i++)
+        {
+            if (board.getPiece(i).getPlayer()==playerTurn)
+            {
+                int r = board.getRow(i);
+                if (r < estremoBasso)
+                    estremoBasso = r;
+                if (r > estremoAlto)
+                    estremoAlto = r;
+            }
+        }
         int player=playerTurn;
         int enemy;
         if (player==1)
             enemy=2;
         else
             enemy=1;
-        WeakMoves costi= new WeakMoves(2);
+        WeakMoves costi= new WeakMoves(3);
         for (int a=0;a<bestMoves.size();a++)
         {
             int move1= bestMoves.get(a).getKey();
@@ -420,6 +433,8 @@ public class Checkers {
             playerTurn=player;
             ArrayList<Mossa> mosseEnemy= new ArrayList<Mossa>();
             mosseEnemy.add(new Mossa(move1,move2,player));//MOSSA DEL GIOCATORE IN CORSO
+            mosseEnemy.add(new Mossa (estremoBasso,999,999));
+            mosseEnemy.add(new Mossa (estremoAlto,999,998));
             for (int i=0; i<movesEnemy.size();i++)
                 for (Integer j: movesEnemy.get(i).getValue())
                     mosseEnemy.add(new Mossa (movesEnemy.get(i).getKey(),j,enemy));

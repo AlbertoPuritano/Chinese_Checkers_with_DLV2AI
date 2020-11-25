@@ -326,6 +326,42 @@ public class Board {
     {
         return pieces.get(p);
     }
+    public int getRow(int posizione){
+        if(posizione==0)
+            return 0;
+        if(posizione == 1 || posizione == 2)
+            return 1;
+        if(posizione >= 3 && posizione <= 5)
+            return 2;
+        if(posizione >= 6 && posizione <= 9)
+            return 3;
+        if(posizione >= 10 && posizione <= 22)
+            return 4;
+        if(posizione >= 23 && posizione <= 34)
+            return 5;
+        if(posizione >= 35 && posizione <= 45)
+            return 6;
+        if(posizione >= 46 && posizione <= 55)
+            return 7;
+        if(posizione >= 56 && posizione <= 64)
+            return 8;
+        if(posizione >= 65 && posizione <= 74)
+            return 9;
+        if(posizione >= 75 && posizione <= 85)
+            return 10;
+        if(posizione >= 86 && posizione <= 97)
+            return 11;
+        if(posizione >= 98 && posizione <= 110)
+            return 12;
+        if(posizione >= 111 && posizione <= 114)
+            return 13;
+        if(posizione >= 115 && posizione <= 117)
+            return 14;
+        if(posizione == 118 || posizione == 119)
+            return 15;
+        else
+            return 16;
+    }
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, ArrayList<Integer> possibleMoves)
     {
         batch.begin();
