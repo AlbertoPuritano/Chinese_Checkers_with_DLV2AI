@@ -5,11 +5,15 @@
 distanza(D):- mossa(N,M,C,R1,R2),C=1, R2-R1=D, D>=0.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 :~ #max{X:distanza(X)}=A.[A@2]
 
 %meglio non allontanarsi troppo dagli estremi
 %:~ mossa(R1,_,999,_,_), mossa (_,_,1,_,R2), R1-R2=N. [N@1]
 %:~ mossa(R1,_,998,_,_), mossa (_,_,1,_,R2), R2-R1=N. [N@1]
+=======
+:~ #max{X:distanza(X)}=A.[A@1]
+>>>>>>> parent of 539e322... MANNAIA A DIO
 =======
 :~ #max{X:distanza(X)}=A.[A@1]
 >>>>>>> parent of 539e322... MANNAIA A DIO
