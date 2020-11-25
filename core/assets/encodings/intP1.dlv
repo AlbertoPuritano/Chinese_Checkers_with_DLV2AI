@@ -4,11 +4,17 @@ in(N,M,R1,R2)|out(N,M,R1,R2):- mossa (N,M,1,R1,R2).
 :- in(N,M,R1,R2), R2-R1=Z, Y=#max{X:distanza(X,_)}, Z<Y.
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 %:- in (N,M,R1,R2), #min{X:mossa(_,_,_,X,_)}=R1, R2-R1>6.
 %:- in (N,M,R1,R2), #max{X:mossa(_,_,_,X,_)}=R1, R2-R1<6.
 
 
 
+=======
+>>>>>>> parent of 539e322... MANNAIA A DIO
+=======
+>>>>>>> parent of 539e322... MANNAIA A DIO
 
 
 
