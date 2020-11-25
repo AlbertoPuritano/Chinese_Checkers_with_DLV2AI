@@ -112,8 +112,8 @@ public class Checkers {
     }
     public Boolean makeMove()
     {
-    	if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER))
-    		System.out.println(getMoves());
+    	//if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER))
+    	//	System.out.println(getMoves());
         if (AI[playerTurn])
             return AIMove();
         else
@@ -332,9 +332,7 @@ public class Checkers {
                 for (Integer move: jumpMoves)
                 {
                     if (!piecesAndMoves.get(i).getValue().contains(move))
-                    {
                         piecesAndMoves.get(i).getValue().add(move);
-                    }
                 }
             }
         }
@@ -376,10 +374,8 @@ public class Checkers {
         ai.loadFacts(mosse);
         ai.loadEncoding(playerTurn);
         ArrayList<Pair<Integer,Integer>> bestMoves= new ArrayList<Pair<Integer,Integer>>();
-        System.out.println("ma che è sta merda");
         for (AnswerSet a: ai.getAnswersets(true).getAnswersets())
         {
-            System.out.println("caio");
         	try
         	{
         		for (Object obj: a.getAnswerSet())
@@ -392,7 +388,6 @@ public class Checkers {
  				    	while (m2.find())
  				    		values.add(m2.group());
  				    	bestMoves.add(new Pair<Integer,Integer> (Integer.parseInt(values.get(0)),Integer.parseInt(values.get(1))));
-                        System.out.println("diobastardo");
  				    }
         		}
         	}
@@ -426,11 +421,11 @@ public class Checkers {
         {
             int move1= bestMoves.get(a).getKey();
             int move2=bestMoves.get(a).getValue();
-            playerTurn=enemy;
             board.move(move1,move2,playerTurn);
+            playerTurn=enemy;
             ArrayList<Pair<Integer,ArrayList<Integer>>> movesEnemy = getMoves();
-            board.move(move2,move1,playerTurn);
             playerTurn=player;
+            board.move(move2,move1,playerTurn);
             ArrayList<Mossa> mosseEnemy= new ArrayList<Mossa>();
             mosseEnemy.add(new Mossa(move1,move2,player));//MOSSA DEL GIOCATORE IN CORSO
             mosseEnemy.add(new Mossa (estremoBasso,999,999));
@@ -465,6 +460,11 @@ public class Checkers {
             playerTurn=1;
         board.turnChanged(playerTurn);
         possibleMoves.clear();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return false;
     }
     public void dispose()

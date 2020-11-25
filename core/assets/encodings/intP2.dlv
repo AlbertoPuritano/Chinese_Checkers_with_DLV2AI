@@ -3,22 +3,3 @@ in(N,M,R1,R2)|out(N,M,R1,R2):- mossa (N,M,2,R1,R2).
 :- #count{A,B,C,D:in(A,B,C,D)}=N, N!=1.
 :- in(N,M,R1,R2), R1-R2=Z, Y=#max{X:distanza(X,_)}, Z<Y.
 
-
-
-%%Tattiche in mente(?):
-%%Forza bruta - Preparare i salti attraverso le pedine nemiche - Preparare ostruzionismo contro i nemici - Evitare salti dei nemici - Evitare l'ostruzionismo del nemico - scegliere bene i costi
-%%Entit� che potrebbero servirci
-%%Pedine(Posizione, DovePu�Andare, Colore, Id) 
-%%Mosse(DovePu�Andare, ObbiettivoDaRaggiungere, IdPedina)
-%%Tattica(ControlloNemiciIntorno, ControlloSalto, ControlliPrePostMossa)
-%%OutputFinale(IdPedina, Destinazione)
-
-%%Controlli da aggiungere 
-
-%%Range nelle colonne (ovvero non spostarti ne troppo a destra ne troppo a sinistra)
-
-%%Muoversi in blocco ovvero tutti in gruppo
-
-%%A parit� di destinazione conta di pi� se stai partendo da lontano
-
-%%Pesi: meglio muovere chi non � ancora nell'area nemica
